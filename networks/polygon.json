@@ -1,0 +1,19 @@
+{
+    "chain": "polygon",
+    "PixelCoinBank": "0x326C96342CcDd04353939b5D244450DA41ace76b",
+    "NftBank": "0x4ceAdCE3B77248115A9eC36c39daDeDf26989df5",
+    "NftReward": "0x5C6523802BacaeA4c28501170465f7D41978B69E",
+    "LiquidityCoinBank": "0x290e2a921f86A6317101c102EA83eb4E9b126793",
+    "NftOwnerReward": "0xC46217a5B9841F3238428410F8F0F8Ba628D50bb",
+    "CanvasManager": "0xa3A7AE1E2562070c46B78bBaabd014Ba72d4a9a0",
+    "CanvasManagerV2": "0xA5E94f7Cd470D178c0901a319b55FBBC4fecf2C1",
+    "blocks": {
+        "PixelCoinBank": 25250163,
+        "NftBank": 25251497,
+        "LiquidityCoinBank": 25255508,
+        "NftReward": 25280608,
+        "NftOwnerReward": 25479867,
+        "CanvasManager": 21193302,
+        "CanvasManagerV2": 25279943
+    }
+}
