@@ -1,0 +1,10 @@
+{
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 5000,
+    "editor.tabSize": 4,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+}

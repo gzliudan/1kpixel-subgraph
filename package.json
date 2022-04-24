@@ -1,0 +1,64 @@
+{
+  "name": "1kpixel-subgraph",
+  "description": "subgraph for 1kpixel",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "",
+  "author": "Daniel Liu",
+  "homepage": "https://github.com/gzliudan/1kpixel-subgraph",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gzliudan/1kpixel-subgraph"
+  },
+  "bugs": {
+    "url": "https://github.com/gzliudan/1kpixel-subgraph/issues",
+    "email": "liudaniel@qq.com"
+  },
+  "keywords": [
+    "Ethereum",
+    "Solidity",
+    "Typescript",
+    "GraphQL",
+    "Subgraph",
+    "1kpixel",
+    "Smart Contract"
+  ],
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.14.4",
+    "yarn": ">=1.22.0"
+  },
+  "scripts": {
+    "clean": "rm -rf build/ generated/",
+    "prepare:local": "mustache networks/local.json subgraph.template.yaml subgraph.local.yaml",
+    "prepare:mumbai": "mustache networks/mumbai.json subgraph.template.yaml subgraph.mumbai.yaml",
+    "prepare:polygon": "sed 's/polygon/matic/1' networks/polygon.json | mustache - subgraph.template.yaml subgraph.polygon.yaml",
+    "codegen:local": "graph codegen --output-dir generated subgraph.local.yaml",
+    "codegen:mumbai": "graph codegen --output-dir generated subgraph.mumbai.yaml",
+    "codegen:polygon": "graph codegen --output-dir generated subgraph.polygon.yaml",
+    "deploy:local": "graph deploy --node http://127.0.0.1:8020 --ipfs http://localhost:5001 gzliudan/local-pixel subgraph.local.yaml",
+    "deploy:mumbai": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ gzliudan/mumbai-pixel subgraph.mumbai.yaml",
+    "deploy:polygon": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ gzliudan/polygon-pixel subgraph.polygon.yaml",
+    "make:local": "yarn clean && yarn prepare:local && yarn codegen:local && yarn deploy:local",
+    "make:mumbai": "yarn clean && yarn prepare:mumbai && yarn codegen:mumbai && yarn deploy:mumbai",
+    "make:polygon": "yarn clean && yarn prepare:polygon && yarn codegen:polygon && yarn deploy:polygon",
+    "create:local": "graph create --node http://127.0.0.1:8020 gzliudan/local-pixel subgraph.local.yaml",
+    "remove:local": "graph remove --node http://127.0.0.1:8020 gzliudan/local-pixel subgraph.local.yaml",
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "create": "graph create --node https://api.thegraph.com/deploy/ gzliudan/pixel",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ gzliudan/pixel"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.29.0",
+    "@graphprotocol/graph-ts": "^0.26.0",
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "eslint": "^8.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "mustache": "^4.2.0",
+    "prettier": "^2.6.2"
+  }
+}
