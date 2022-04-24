@@ -1,0 +1,52 @@
+enum LogType {
+    PIXEL_COIN_BANK
+    NFT_BANK
+    LIQUIDITY_COIN_BANK
+    NFT_REWARD
+    NFT_OWNER_REWARD
+}
+
+type ClaimRecord @entity {
+    id: ID! # transaction hash
+    timestamp: BigInt! # block timestamp
+    type: LogType!
+    to: String! # address of receiver
+    amount: BigInt! # amount of claim
+    tokenId: BigInt # tokenId of NFT, for NftReward and NftOwnerReward
+}
+
+type ClaimSummary @entity {
+    id: ID! # id of ClaimSummary (= "1")
+    sumOfAll: BigInt! # sum of all claim amount
+    sumOfPixelCoinBank: BigInt! # sum of PIXEL_COIN_BANK claim amount
+    sumOfNftBank: BigInt! # sum of NFT_BANK claim amount
+    sumOfLiquidityCoinBank: BigInt! # sum of LIQUIDITY_COIN_BANK claim amount
+    sumOfNftReward: BigInt! # sum of NFT_REWARD claim amount
+    sumOfNftOwnerReward: BigInt! # sum of NFT_OWNER_REWARD claim amount
+}
+
+type Summary @entity {
+    id: ID! # id of Summary  (= "1")
+    countOfArt: Int! # count of Art
+    countOfArtist: Int! # count of Artist
+    arts: [Art!] @derivedFrom(field: "summary")
+    artists: [Artist!]! @derivedFrom(field: "summary")
+}
+
+type Art @entity {
+    id: ID! # tokenId of art
+    summary: Summary!
+    artists: [ArtArtist!]! @derivedFrom(field: "art")
+}
+
+type Artist @entity {
+    id: ID! # address of artist
+    summary: Summary!
+    arts: [ArtArtist!] @derivedFrom(field: "artist")
+}
+
+type ArtArtist @entity {
+    id: ID! # Set to `${Art.id}-${Artist.id}`
+    art: Art!
+    artist: Artist!
+}
