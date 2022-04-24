@@ -1,0 +1,165 @@
+specVersion: 0.0.4
+description: 1kpixel
+repository: https://github.com/gzliudan/1kpixel-subgraph
+schema:
+    file: ./schema.graphql
+dataSources:
+    - name: PixelCoinBank
+      kind: ethereum/contract
+      network: {{chain}}
+      source:
+          abi: PixelCoinBank
+          address: '{{PixelCoinBank}}'
+          startBlock: {{blocks.PixelCoinBank}}
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.6
+          language: wasm/assemblyscript
+          file: ./src/PixelCoinBank.ts
+          entities:
+              - ClaimSum
+              - ClaimRecord
+          abis:
+              - name: PixelCoinBank
+                file: ./abis/PixelCoinBank.json
+          eventHandlers:
+              - event: Claim(indexed address,indexed address,uint256)
+                handler: handlePixelCoinBankClaim
+
+    - name: NftBank
+      kind: ethereum/contract
+      network: {{chain}}
+      source:
+          abi: Erc721Bank
+          address: '{{NftBank}}'
+          startBlock: {{blocks.NftBank}}
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.6
+          language: wasm/assemblyscript
+          file: ./src/NftBank.ts
+          entities:
+              - ClaimSum
+              - ClaimRecord
+          abis:
+              - name: Erc721Bank
+                file: ./abis/Erc721Bank.json
+          eventHandlers:
+              - event: Claim(indexed address,indexed address,uint256)
+                handler: handleNftBankClaim
+
+    - name: LiquidityCoinBank
+      kind: ethereum/contract
+      network: {{chain}}
+      source:
+          abi: LiquidityCoinBank
+          address: '{{LiquidityCoinBank}}'
+          startBlock: {{blocks.LiquidityCoinBank}}
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.6
+          language: wasm/assemblyscript
+          file: ./src/LiquidityCoinBank.ts
+          entities:
+              - ClaimSum
+              - ClaimRecord
+          abis:
+              - name: LiquidityCoinBank
+                file: ./abis/LiquidityCoinBank.json
+          eventHandlers:
+              - event: Claim(indexed address,indexed address,uint256)
+                handler: handleLiquidityCoinBankClaim
+
+    - name: NftReward
+      kind: ethereum/contract
+      network: {{chain}}
+      source:
+          abi: NftReward
+          address: '{{NftReward}}'
+          startBlock: {{blocks.NftReward}}
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.6
+          language: wasm/assemblyscript
+          file: ./src/NftReward.ts
+          entities:
+              - ClaimSum
+              - ClaimRecord
+          abis:
+              - name: NftReward
+                file: ./abis/NftReward.json
+          eventHandlers:
+              - event: Claim(indexed uint256,indexed address,uint256)
+                handler: handleNftRewardClaim
+
+    - name: NftOwnerReward
+      kind: ethereum/contract
+      network: {{chain}}
+      source:
+          abi: NftOwnerReward
+          address: '{{NftOwnerReward}}'
+          startBlock: {{blocks.NftOwnerReward}}
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.6
+          language: wasm/assemblyscript
+          file: ./src/NftOwnerReward.ts
+          entities:
+              - ClaimSum
+              - ClaimRecord
+          abis:
+              - name: NftOwnerReward
+                file: ./abis/NftOwnerReward.json
+          eventHandlers:
+              - event: NftOwnerClaim(indexed uint256,indexed address,uint256)
+                handler: handleNftOwnerRewardClaim
+
+    - name: CanvasManager
+      kind: ethereum/contract
+      network: {{chain}}
+      source:
+          abi: CanvasManager
+          address: '{{CanvasManager}}'
+          startBlock: {{blocks.CanvasManager}}
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.6
+          language: wasm/assemblyscript
+          file: ./src/CanvasManager.ts
+          entities:
+              - Art
+              - Artist
+              - ArtArtist
+          abis:
+              - name: CanvasManager
+                file: ./abis/CanvasManager.json
+          eventHandlers:
+              - event: NewArt(indexed address,indexed uint256,uint256,uint256)
+                handler: handleNewArt
+              - event: EndArt(indexed address,indexed uint256)
+                handler: handleEndArt
+
+    - name: CanvasManagerV2
+      kind: ethereum/contract
+      network: {{chain}}
+      source:
+          abi: CanvasManagerV2
+          address: '{{CanvasManagerV2}}'
+          startBlock: {{blocks.CanvasManagerV2}}
+      mapping:
+          kind: ethereum/events
+          apiVersion: 0.0.6
+          language: wasm/assemblyscript
+          file: ./src/CanvasManagerV2.ts
+          entities:
+              - Art
+              - Artist
+              - ArtArtist
+          abis:
+              - name: CanvasManagerV2
+                file: ./abis/CanvasManagerV2.json
+          eventHandlers:
+              - event: NewArt(indexed address,indexed uint256,uint256,uint256)
+                handler: handleNewArt
+              - event: DrawPixel(indexed address,indexed uint256,uint256,uint256,uint24)
+                handler: handleDrawPixel
