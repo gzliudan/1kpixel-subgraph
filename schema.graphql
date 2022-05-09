@@ -36,6 +36,7 @@ type Summary @entity {
 type Art @entity {
     id: ID! # tokenId of art
     summary: Summary!
+    countOfArtist: Int! # count of Artist
     artists: [ArtArtist!]! @derivedFrom(field: "art")
 }
 

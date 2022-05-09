@@ -92,7 +92,7 @@ export function updateCountOfArt(): void {
     summary.save();
 }
 
-export function updateCountOfArtist(): void {
+function updateSummaryCountOfArtist(): void {
     let summary = Summary.load(SUMMARY_ID);
 
     if (summary == null) {
@@ -106,9 +106,19 @@ export function updateCountOfArtist(): void {
     summary.save();
 }
 
+function updateArtCountOfArtist(artId: string): void {
+    const art = Art.load(artId);
+
+    if (art != null) {
+        art.countOfArtist = art.countOfArtist + 1;
+        art.save();
+    }
+}
+
 export function createArt(artId: string): void {
     const art = new Art(artId);
     art.summary = SUMMARY_ID;
+    art.countOfArtist = 0;
     art.save();
 
     updateCountOfArt();
@@ -122,7 +132,7 @@ export function createArtist(artistId: string): void {
         artist.summary = SUMMARY_ID;
         artist.save();
 
-        updateCountOfArtist();
+        updateSummaryCountOfArtist();
     }
 }
 
@@ -135,5 +145,7 @@ export function createArtArtist(artId: string, artistId: string): void {
         artArtist.art = artId;
         artArtist.artist = artistId;
         artArtist.save();
+
+        updateArtCountOfArtist(artId);
     }
 }
